@@ -86,8 +86,8 @@ object ApiModule {
                     500 -> lclApp.getString(R.string.server_500_error_msg)
                     else -> return@Interceptor response
                 }
-                val body =
-                    s.toResponseBody(contentType = Constants.API_MEDIA_TYPE.toMediaType())
+                /*val body =
+                    s.toResponseBody(contentType = Constants.API_MEDIA_TYPE.toMediaType())*/
                 Response.Builder().code(Constants.CustomErrorCode)
                     .message(s)
                     .request(request)
