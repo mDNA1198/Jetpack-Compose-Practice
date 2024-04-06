@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TeachmintAssignment</string>
+
+    <string name="server_unreachable">Server unreachable</string>
+    <string name="server_500_error_msg">An unexpected error occurred. Please try again or contact support if the problem persists.</string>
+    <string name="internet_not_available">No Internet.</string>
+</resources>
