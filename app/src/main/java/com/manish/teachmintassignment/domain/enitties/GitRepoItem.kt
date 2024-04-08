@@ -24,7 +24,7 @@ data class GitRepoItem(
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("full_name")
-    var fullName: String? = null,
+    var fullName: String = "",
 
     @SerializedName("private")
     var private: Boolean? = null,

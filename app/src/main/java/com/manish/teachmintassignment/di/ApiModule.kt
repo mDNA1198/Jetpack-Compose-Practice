@@ -1,7 +1,7 @@
 package com.manish.teachmintassignment.di
 
 import android.app.Application
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.google.gson.GsonBuilder
 import com.manish.teachmintassignment.BuildConfig
 import com.manish.teachmintassignment.R
 import com.manish.teachmintassignment.data.remote.ApiService
@@ -10,12 +10,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.json.Json
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
@@ -32,13 +32,12 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val json = Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
         return Retrofit.Builder()
-            .addConverterFactory(json.asConverterFactory(Constants.API_MEDIA_TYPE.toMediaType()))
-            .baseUrl("https://api.github.com/")
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                GsonBuilder().setLenient().create()
+            ))
+            .baseUrl(BuildConfig.API_URL)
             .client(okHttpClient)
             .build()
     }

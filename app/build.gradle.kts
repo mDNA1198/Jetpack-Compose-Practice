@@ -76,7 +76,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     //coroutines, lifeCycle , liveData
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
@@ -87,7 +87,7 @@ dependencies {
 
     //hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    implementation ("com.google.dagger:hilt-android:2.46.1")
+    implementation ("com.google.dagger:hilt-android:2.49")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
 
     implementation("androidx.room:room-ktx:2.6.1")
@@ -107,9 +107,10 @@ dependencies {
 
     //Paging
     implementation("androidx.paging:paging-compose:3.2.1")
-    implementation("androidx.paging:paging-runtime:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
 
     testImplementation("junit:junit:4.13.2")
