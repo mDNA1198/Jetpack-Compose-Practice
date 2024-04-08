@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manish.teachmintassignment.data.remote.NetworkResult
+import com.manish.teachmintassignment.domain.enitties.ContributorItem
 import com.manish.teachmintassignment.domain.enitties.GitRepoItem
 import com.manish.teachmintassignment.domain.repository.GitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,9 @@ class RepoDetailsViewModel @Inject constructor(private val repository: GitReposi
     private val _repoDetails = MutableSharedFlow<NetworkResult<Response<GitRepoItem>?>>()
     val repoDetails: SharedFlow<NetworkResult<Response<GitRepoItem>?>> = _repoDetails
 
+    private val _repoContributorsList = MutableSharedFlow<NetworkResult<Response<List<ContributorItem>>?>>()
+    val repoContributorsList: SharedFlow<NetworkResult<Response<List<ContributorItem>>?>> = _repoContributorsList
+
     private val _isLoading = MutableSharedFlow<Boolean>()
     val isLoading: SharedFlow<Boolean> = _isLoading
 
@@ -29,6 +33,16 @@ class RepoDetailsViewModel @Inject constructor(private val repository: GitReposi
             _isLoading.emit(true)
             repository.getRepoDetailsByRepoFullName(repoOwner, repoName).collect {
                 _repoDetails.emit(it)
+                _isLoading.emit(false)
+            }
+        }
+    }
+
+    fun getRepoContributorsList(contributorsListUrl: String){
+        viewModelScope.launch {
+            _isLoading.emit(true)
+            repository.getRepoContributorsList(contributorsListUrl).collect {
+                _repoContributorsList.emit(it)
                 _isLoading.emit(false)
             }
         }

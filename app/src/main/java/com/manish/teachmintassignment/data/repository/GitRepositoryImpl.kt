@@ -2,6 +2,7 @@ package com.manish.teachmintassignment.data.repository
 
 import com.manish.teachmintassignment.data.remote.ApiService
 import com.manish.teachmintassignment.data.remote.NetworkResult
+import com.manish.teachmintassignment.domain.enitties.ContributorItem
 import com.manish.teachmintassignment.domain.enitties.GitRepoItem
 import com.manish.teachmintassignment.domain.models.GitRepoSearchResponse
 import com.manish.teachmintassignment.domain.repository.GitRepository
@@ -36,6 +37,29 @@ class GitRepositoryImpl(
             emit(NetworkResult.Loading())
             try {
                 val response = apiService.getRepoDetails(repoOwner, repoName)
+                emit(NetworkResult.Success(response))
+            } catch (e: Exception) {
+                emit(NetworkResult.Error(e.message ?: e.toString()))
+            }
+        }.flowOn(ioDispatcher)
+
+    override fun getRepoContributorsList(contributorsListUrl: String): Flow<NetworkResult<Response<List<ContributorItem>>?>> =
+        flow {
+            emit(NetworkResult.Loading())
+            try {
+                val response = apiService.getRepoContributorsList(contributorsListUrl)
+                emit(NetworkResult.Success(response))
+            } catch (e: Exception) {
+                emit(NetworkResult.Error(e.message ?: e.toString()))
+            }
+        }.flowOn(ioDispatcher)
+
+
+    override fun getRepositoriesOfAUser(userName: String): Flow<NetworkResult<Response<List<GitRepoItem>>?>> =
+        flow {
+            emit(NetworkResult.Loading())
+            try {
+                val response = apiService.getRepositoriesOfAUser(userName)
                 emit(NetworkResult.Success(response))
             } catch (e: Exception) {
                 emit(NetworkResult.Error(e.message ?: e.toString()))

@@ -1,6 +1,7 @@
 package com.manish.teachmintassignment.domain.repository
 
 import com.manish.teachmintassignment.data.remote.NetworkResult
+import com.manish.teachmintassignment.domain.enitties.ContributorItem
 import com.manish.teachmintassignment.domain.enitties.GitRepoItem
 import com.manish.teachmintassignment.domain.models.GitRepoSearchResponse
 import kotlinx.coroutines.flow.Flow
@@ -11,5 +12,9 @@ interface GitRepository {
     fun searchRepositories(searchKeyword: String, page: Int, perPage: Int): Flow<NetworkResult<Response<GitRepoSearchResponse>?>>
 
     fun getRepoDetailsByRepoFullName(repoOwner: String, repoName: String) : Flow<NetworkResult<Response<GitRepoItem>?>>
+
+    fun getRepoContributorsList(contributorsListUrl: String) : Flow<NetworkResult<Response<List<ContributorItem>>?>>
+
+    fun getRepositoriesOfAUser(userName: String): Flow<NetworkResult<Response<List<GitRepoItem>>?>>
 
 }
